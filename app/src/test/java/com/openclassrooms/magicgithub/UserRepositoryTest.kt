@@ -30,10 +30,7 @@ class UserRepositoryTest {
     fun getUsersWithSuccess() {
         val usersActual = userRepository.getUsers()
         val usersExpected: List<User> = FAKE_USERS
-        assertEquals(
-            usersActual,
-            usersExpected
-        )
+        assertEquals(usersActual, usersExpected)
     }
 
     @Test
@@ -54,5 +51,13 @@ class UserRepositoryTest {
         val userToDelete = userRepository.getUsers()[0]
         userRepository.deleteUser(userToDelete)
         Assert.assertFalse(userRepository.getUsers().contains(userToDelete))
+    }
+
+    @Test
+    fun toggleUserActiveStatus() {
+        val user = userRepository.getUsers()[0]
+        val initialStatus = user.isActive
+        user.isActive = !initialStatus
+        assertEquals(user.isActive, !initialStatus)
     }
 }
